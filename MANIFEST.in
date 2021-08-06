@@ -1,0 +1,2 @@
+recursive-include flaskapp/static/*
+recursive-include flaskapp/templates/*
