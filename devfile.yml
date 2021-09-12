@@ -33,7 +33,8 @@ commands:
       -
         type: exec
         component: python
-        command: '. ${HOME}/.venv/bin/activate &&  gunicorn'
+        command: '. ${HOME}/.venv/bin/activate && gunicorn wsgi:application -b 0.0.0.0:8080
+'
         workdir: '${CHE_PROJECTS_ROOT}/flask-app'
   -
     name: install
