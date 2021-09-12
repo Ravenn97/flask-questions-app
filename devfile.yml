@@ -25,7 +25,7 @@ components:
         port: 8080
         attributes:
           protocol: http
-          secure: 'true'
+          secure: 'false'
           public: 'true'
           discoverable: 'false'
 commands:
