@@ -1,0 +1,45 @@
+---
+# devfile for Python flask projects, adapted from
+# https://github.com/eclipse-che/che-devfile-registry/blob/main/devfiles/python/devfile.yaml
+apiVersion: 1.0.0
+metadata:
+  generateName: flask-
+projects:
+  -
+    name: flask-app
+    source:
+      type: git
+      location: "https://github.com/shaneboulden/flask-app"
+components:
+  -
+    type: chePlugin
+    id: ms-python/python/latest
+  -
+    type: dockerimage
+    alias: python
+    image: quay.io/eclipse/che-python-3.8:next
+    memoryLimit: 512Mi
+    mountSources: true
+    env:
+      - name: FLASK_SECRET
+        value: 'you-will-never-guess'
+    volumes:
+      - name: venv
+        containerPath: /home/user/.venv
+commands:
+  -
+    name: run
+    actions:
+      -
+        type: exec
+        component: python
+        command: '. ${HOME}/.venv/bin/activate &&  gunicorn'
+        workdir: '${CHE_PROJECTS_ROOT}/flask-app'
+  -
+    name: install
+    actions:
+      - 
+        type: exec
+        component: python
+        command: '. ${HOME}/.venv/bin/activate && pip install -r requirements.txt'
+        workdir: '${CHE_PROJECTS_ROOT}/flask-app'
