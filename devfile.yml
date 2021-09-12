@@ -5,17 +5,14 @@ apiVersion: 1.0.0
 metadata:
   generateName: flask-
 projects:
-  -
-    name: flask-app
+  - name: flask-app
     source:
       type: git
       location: "https://github.com/shaneboulden/flask-app"
 components:
-  -
-    type: chePlugin
+  - type: chePlugin
     id: ms-python/python/latest
-  -
-    type: dockerimage
+  - type: dockerimage
     alias: python
     image: quay.io/eclipse/che-python-3.8:next
     memoryLimit: 512Mi
@@ -27,20 +24,15 @@ components:
       - name: venv
         containerPath: /home/user/.venv
 commands:
-  -
-    name: run
+  - name: run
     actions:
-      -
-        type: exec
+      - type: exec
         component: python
-        command: '. ${HOME}/.venv/bin/activate && gunicorn wsgi:application -b 0.0.0.0:8080
-'
+        command: '. ${HOME}/.venv/bin/activate && gunicorn wsgi:application -b 0.0.0.0:8080'
         workdir: '${CHE_PROJECTS_ROOT}/flask-app'
-  -
-    name: install
+  - name: install
     actions:
-      - 
-        type: exec
+      - type: exec
         component: python
         command: '. ${HOME}/.venv/bin/activate && pip install -r requirements.txt'
         workdir: '${CHE_PROJECTS_ROOT}/flask-app'
