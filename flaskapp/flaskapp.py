@@ -8,7 +8,6 @@ import requests
 import os
 
 application = Flask(__name__)
-application.secret_key = os.environ['FLASK_SECRET']
 
 @application.route('/healthz')
 def healthz():
